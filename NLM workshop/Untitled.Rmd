@@ -1,0 +1,8 @@
+#vectors
+
+#logical
+
+vtrl1 = C(TRUE, FALSE)
+vtrl2 = C(15, 85.6974,99999999)
+CLASS(VTRL)
+install.packages("nlstools")
