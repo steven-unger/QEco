@@ -1,7 +1,7 @@
-setwd("/Users/Lee/Documents/Git Repository/QuanEco")
+setwd("/Users/Lee/Desktop/QEco/species distribution")
 
 ##Import data
-obs.data <- read.csv('~/Documents/Git Repository/QuanEco/species distribution/SDM_Data.csv')
+obs.data <- read.csv("/Users/Lee/Desktop/QEco/species distribution/SDM_Data.csv")
 
 # Species distribution modeling for saguaro
 # Jeff Oliver
@@ -18,7 +18,7 @@ library("dismo")
 bioclim.data <- getData(name = "worldclim",
                         var = "bio",
                         res = 2.5,
-                        path = "/Users/Lee/Documents/Git Repository/QuanEco/species distribution")
+                        path = "/Users/Lee/Documents/Quantitative_Ecology_NOT_GIT")
 
 # Check the data to make sure it loaded correctly
 summary(obs.data)
@@ -99,7 +99,7 @@ box()
 
 
 # Use the bioclim data files for sampling resolution
-bil.files <- list.files(path = "/Users/Lee/Documents/Git Repository/QuanEco/species distribution/wc2-5", 
+bil.files <- list.files(path = "/Users/Lee/Documents/Quantitative_Ecology_NOT_GIT/wc2-5", 
                         pattern = "*.bil$", 
                         full.names = TRUE)
 
