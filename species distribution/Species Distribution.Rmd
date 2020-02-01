@@ -4,26 +4,39 @@ author: "Steven Unger"
 date: "1/31/2020"
 output: html_document
 ---
-Methods
+# Methods
 
-Species Information
+## Species Information
 
-The Saguaro cactus (Carnegiea gigantea) is a columnar cactus endemic to the Sonoran Desert (western Sonora Desert and southern Arizona). It is considered a keystone species because of how many species rely on all the different life stages of the plant for food, nesting, shade, etc. There is increasing fears of population collapse because of invasive grass species which are encouraging a fire regime which Saguaro cacti did not evolve to experience. As the climate warms, and grasses invade, saguaro cacti populations are expected to decline. Thus, it is critically important to understand the species distribution to inform and direct conservation and restoration efforts.
+The Saguaro cactus (_Carnegiea gigantea_) is a columnar cactus endemic to the Sonoran Desert (western Sonora Desert and southern Arizona). It is considered a keystone species because of how many species rely on all the different life stages of the plant for food, nesting, shade, etc (Drezner, 2014). There is increasing fears of population collapse because of invasive grass species which are encouraging a fire regime which Saguaro cacti did not evolve to experience. As the climate warms, and grasses invade, saguaro cacti populations are expected to decline (Hauser, 1993),(Marshall _et al_, 2012),(Schiermeier, 2005). Thus, it is critically important to understand the species distribution to inform and direct conservation and restoration efforts.
 
-
-![Saguaro cactus](/Users/Lee/Documents/Git Repository/QuanEco/species distribution/Saguaro cactus.jpg){width=200px}
-Saguaro Cacrtus (Carnegiea gigantea)
+![Saguaro Cacrtus (_Carnegiea gigantea_)](/Users/Lee/Desktop/QEco/species distribution/Saguaro cactus.jpg){width=200px}
 
 
+## Statistical Analysis
+BIOCLIM is an algorithm is a very useful modeling method used for species distribution, especially to teach newcomers. Despite newer models performing better than BIOCLIM, the simplicity and ease of use allow students to hone their skills and grasp otherwise complex modelling. 
+The algorith relies on constraining the similarity of locations to the mean if they are near either tail of the distribution. A transformation is performed by using the value obtained via using the minimum tail, subtracting by 1 and multiplying by 2 to ensure a value between 0 and 1. This is done to enable easier analysis interpretation.
 
+![Figure 1: Saguaro distribution](/Users/Lee/Desktop/QEco/species distribution/sagura dist.jpeg)
 
+```{r echo = FALSE, results = 'asis'}
+library(knitr)
+table <- read.csv('~/Desktop/Test_table.csv' )
+kable(table[1:19, ], caption = "__Dependent species__")
+```
 
+Table 1: List of some common species which depend on Saguaro cacti and what it is that they use them for. Not an exhuastive list. Information pulled from (Drezner, 2014), except human uses.
 
+# __Discussion__
 
-##Statistical Analysis
-###Bioclim
-BIOCLIM is an algorithm is a very useful modeling method used for species distribution. 
-The algorith relies on constraining 
-The BIOCLIM algorithm has been extensively used for species distribution modeling. BIOCLIM is a classic ‘climate-envelope-model’ (Booth et al., 2014). Although it generally does not perform as good as some other modeling methods (Elith et al. 2006), particularly in the context of climate change (Hijmans and Graham, 2006), it is still used, among other reasons because the algorithm is easy to understand and thus useful in teaching species distribution modeling. The BIOCLIM algorithm computes the similarity of a location by comparing the values of environmental variables at any location to a percentile distribution of the values at known locations of occurrence (‘training sites’). The closer to the 50th percentile (the median), the more suitable the location is. The tails of the distribution are not distinguished, that is, 10 percentile is treated as equivalent to 90 percentile. In the ‘dismo’ implementation, the values of the upper tail values are transformed to the lower tail, and the minimum percentile score across all the environmental variables is used (i.e., BIOCLIM uses an approach like Liebig’s law of the minimum). This value is subtracted from 1 and then multiplied with two so that the results are between 0 and 1. The reason for scaling this way is that the results become more like that of other distribution modeling methods and are thus easier to interpret. The value 1 will rarely be observed as it would require a location that has the median value of the training data for all the variables considered. The value 0 is very common as it is assigned to all cells with a value of an environmental variable that is outside the percentile distribution (the range of the training data) for at least one of the variables.
+A model showing the distribution of Saguaro cactus (_Carnegiea gigantea_) was created in R studio by using occurance data (GPS points of where the species has been recorded) and environmental data (19 abiotic factors). The model used occurance points as well as pseudo-absence points coupled with BIOCLIM data which factored 19 abiotic variables including various temperature and precipitation parameters (max, min, mean, etc) into the model to not only map the occurance, but also predict where other individuals are likely to exist. This mapping distribution could be very useful to managment officials and researchers who continue to monitor the effects of invasives, as well as monitoring the health of the Sonoran desert by using the keystone species Saguaro cactus as a proxy. While various methods have been developed to more accurately map species distribution, this method is a great starting point to teach young scientist how to code and analysis species distributions.
 
-![Saguaro distribution](/Users/Lee/Documents/Git Repository/QuanEco/species distribution/Sagura dist.jpeg)
+### Works Cited
+
+Drezner, Taly Dawn (2014-06-01). "The keystone saguaro (Carnegiea gigantea, Cactaceae): a review of its ecology, associations, reproduction, limits, and demographics". Plant Ecology. 215 (6): 581–595.
+
+Hauser, A. Scott (1993). "Pennisetum ciliare". US Forest Service Fire Effects Information System. U.S. Department of Agriculture, US Forest Service, Rocky Mountain Research Station, Fire Sciences Laboratory (Producer). 
+
+Marshall, V. M.; Lewis, M. M.; Ostendorf, B. (2012-03-01). "Buffel grass (Cenchrus ciliaris) as an invader and threat to biodiversity in arid environments: A review". Journal of Arid Environments. 78: 1–12.
+
+Schiermeier, Quirin (2005-06-01). "Pall hangs over desert's future as alien weeds fuel wildfires". Nature. 435 (7043): 724.

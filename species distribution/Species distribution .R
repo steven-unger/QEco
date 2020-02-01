@@ -3,6 +3,7 @@ setwd("/Users/Lee/Desktop/QEco/species distribution")
 ##Import data
 obs.data <- read.csv("/Users/Lee/Desktop/QEco/species distribution/SDM_Data.csv")
 
+print( obs.data)
 # Species distribution modeling for saguaro
 # Jeff Oliver
 # jcoliver@email.arizona.edu
@@ -221,5 +222,11 @@ points(x = obs.data$longitude,
 # Redraw those country borders
 plot(wrld_simpl, add = TRUE, border = "grey5")
 box()
+
+
+table <- read.csv('~/Desktop/Test_table.csv' )
+
+print(table)
+
 
 
