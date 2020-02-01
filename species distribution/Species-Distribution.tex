@@ -1,0 +1,196 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
+\hypersetup{
+            pdftitle={Species distribution},
+            pdfauthor={Steven Unger},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs}
+% Fix footnotes in tables (requires footnote package)
+\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{longtable}}{}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\title{Species distribution}
+\author{Steven Unger}
+\date{1/31/2020}
+
+\begin{document}
+\maketitle
+
+\hypertarget{methods}{%
+\section{Methods}\label{methods}}
+
+\hypertarget{species-information}{%
+\subsection{Species Information}\label{species-information}}
+
+The Saguaro cactus (\emph{Carnegiea gigantea}) is a columnar cactus
+endemic to the Sonoran Desert (western Sonora Desert and southern
+Arizona). It is considered a keystone species because of how many
+species rely on all the different life stages of the plant for food,
+nesting, shade, etc (Drezner, 2014). There is increasing fears of
+population collapse because of invasive grass species which are
+encouraging a fire regime which Saguaro cacti did not evolve to
+experience. As the climate warms, and grasses invade, saguaro cacti
+populations are expected to decline (Hauser, 1993),(Marshall \emph{et
+al}, 2012),(Schiermeier, 2005). Thus, it is critically important to
+understand the species distribution to inform and direct conservation
+and restoration efforts.
+
+\begin{figure}
+\centering
+\includegraphics[width=2.08333in,height=\textheight]{/Users/Lee/Desktop/QEco/species distribution/Saguaro cactus.jpg}
+\caption{Saguaro Cacrtus (\emph{Carnegiea gigantea})}
+\end{figure}
+
+\hypertarget{statistical-analysis}{%
+\subsection{Statistical Analysis}\label{statistical-analysis}}
+
+BIOCLIM is an algorithm is a very useful modeling method used for
+species distribution, especially to teach newcomers. Despite newer
+models performing better than BIOCLIM, the simplicity and ease of use
+allow students to hone their skills and grasp otherwise complex
+modelling. The algorith relies on constraining the similarity of
+locations to the mean if they are near either tail of the distribution.
+A transformation is performed by using the value obtained via using the
+minimum tail, subtracting by 1 and multiplying by 2 to ensure a value
+between 0 and 1. This is done to enable easier analysis interpretation.
+
+\begin{figure}
+\centering
+\includegraphics{/Users/Lee/Desktop/QEco/species distribution/sagura dist.jpeg}
+\caption{Figure 1: Saguaro distribution}
+\end{figure}
+
+\begin{longtable}[]{@{}ll@{}}
+\caption{\textbf{Dependent species}}\tabularnewline
+\toprule
+Common.name & Use\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+Common.name & Use\tabularnewline
+\midrule
+\endhead
+Gila woodpeckers & Nests\tabularnewline
+House Finches & Nests\tabularnewline
+Gilded Flickers & Nests\tabularnewline
+Purple Martins & Nests\tabularnewline
+Elf owls & Secondary nests\tabularnewline
+Tyrant Flycatchers & Secondary nests\tabularnewline
+Wrens & Secondary nests\tabularnewline
+White-wing dove & Eat fruits\tabularnewline
+Ants & Eat fruits\tabularnewline
+Honey bee & Eats nectar\tabularnewline
+Flies & Eats decomposing tissue\tabularnewline
+Beetles & Eats decomposing tissue\tabularnewline
+Desert Iguana & eats flowers\tabularnewline
+Sonora harvest mouse & eats seedlings\tabularnewline
+Desert kangaroo rat & eats flowers and seedlings\tabularnewline
+Gray Fox & eats fruit\tabularnewline
+Jack rabbit & fruit\tabularnewline
+Vulture & Roosting perch\tabularnewline
+Humans & eat fruit and seeds, water vessel , use as feed\tabularnewline
+\bottomrule
+\end{longtable}
+
+Table 1: List of some common species which depend on Saguaro cacti and
+what it is that they use them for. Not an exhuastive list. Information
+pulled from (Drezner, 2014), except human uses.
+
+\hypertarget{discussion}{%
+\section{\texorpdfstring{\textbf{Discussion}}{Discussion}}\label{discussion}}
+
+A model showing the distribution of Saguaro cactus (\emph{Carnegiea
+gigantea}) was created in R studio by using occurance data (GPS points
+of where the species has been recorded) and environmental data (19
+abiotic factors). The model used occurance points as well as
+pseudo-absence points coupled with BIOCLIM data which factored 19
+abiotic variables including various temperature and precipitation
+parameters (max, min, mean, etc) into the model to not only map the
+occurance, but also predict where other individuals are likely to exist.
+This mapping distribution could be very useful to managment officials
+and researchers who continue to monitor the effects of invasives, as
+well as monitoring the health of the Sonoran desert by using the
+keystone species Saguaro cactus as a proxy. While various methods have
+been developed to more accurately map species distribution, this method
+is a great starting point to teach young scientist how to code and
+analysis species distributions.
+
+\hypertarget{works-cited}{%
+\subsubsection{Works Cited}\label{works-cited}}
+
+Drezner, Taly Dawn (2014-06-01). ``The keystone saguaro (Carnegiea
+gigantea, Cactaceae): a review of its ecology, associations,
+reproduction, limits, and demographics''. Plant Ecology. 215 (6):
+581--595.
+
+Hauser, A. Scott (1993). ``Pennisetum ciliare''. US Forest Service Fire
+Effects Information System. U.S. Department of Agriculture, US Forest
+Service, Rocky Mountain Research Station, Fire Sciences Laboratory
+(Producer).
+
+Marshall, V. M.; Lewis, M. M.; Ostendorf, B. (2012-03-01). ``Buffel
+grass (Cenchrus ciliaris) as an invader and threat to biodiversity in
+arid environments: A review''. Journal of Arid Environments. 78: 1--12.
+
+Schiermeier, Quirin (2005-06-01). ``Pall hangs over desert's future as
+alien weeds fuel wildfires''. Nature. 435 (7043): 724.
+
+\end{document}
