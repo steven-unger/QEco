@@ -224,9 +224,6 @@ plot(wrld_simpl, add = TRUE, border = "grey5")
 box()
 
 
-table <- read.csv('~/Desktop/Test_table.csv' )
-
-print(table)
 
 
 
