@@ -40,7 +40,7 @@ SS.lrc <- selfStart(model=lrcModel,initial= lrc.int)
 # 3. Find initial values:
 iv <- getInitial(NEE ~ SS.lrc('PAR', "a1", "ax", "r"), data = day[which(day$MONTH == 07),])
 iv
-
+ 
 
 y = nls( NEE ~ (a1 * PAR * ax)/(a1 * PAR + ax) + r, day[which(day$MONTH == 07),], start=list(a1= iv$a1 , ax= iv$ax, r= iv$r),
          na.action=na.exclude, trace=F, control=nls.control(warnOnly=T))

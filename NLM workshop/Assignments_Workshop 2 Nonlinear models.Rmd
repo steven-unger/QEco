@@ -1,7 +1,7 @@
 ---
 title: "Workshop 2_Nonlinear Models"
-author: "Sparkle L. Malone"
-date: "1/17/2020"
+author: "Steven Unger"
+date: "2/5/2020"
 output: github_document
 ---
 
@@ -10,26 +10,54 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Objectives
-The primary objectives of this analysis is to fit monthly light response curves for Harvard forest to understand annual patterns of ecosystem photosynthetic potential and respiration rates in temperate mixed forests. We will learn how to apply non-linear models and bootstrapping in R so that if need be, we can apply this technique to our own datasets down the line.
+The primary objectives of this analysis are to fit monthly light response curves for Harvard forest to understand annual patterns of ecosystem photosynthetic potential and respiration rates in temperate mixed forests. We will learn how to apply non-linear models and bootstrapping in R so that if need be, we can apply this technique to our own datasets further own the line.
 
 # Methods
    
 ## Site Information
-An eddy covariance tower located above the canopy in Harvard forest in Massachusetts was used to collect continoues data of various ecological parameters such as PAR, Temperature, precipitation, and gas exchange (GPP, R, etc). The site contains various dominant species; red oak, redd maple, black birch, white pine, and eastern hemlock. For information about sensors and background info for the EMS tower at Harvard Forest, Visit [Flux at Harvard Forest](https://harvardforest.fas.harvard.edu/other-tags/eddy-flux)
+An eddy covariance tower located above the canopy in Harvard forest in Massachusetts was used to collect continuous data of various ecological parameters such as PAR, Temperature, precipitation, and gas exchange (GPP, R, etc). The site contains various dominant species; red oak, red maple, black birch, white pine, and eastern hemlock. For information about sensors and background info for the EMS tower at Harvard Forest, Visit [Flux at Harvard Forest](https://harvardforest.fas.harvard.edu/other-tags/eddy-flux)
 
 ## Photosynthetic Potential
-Photosynthetic potential is the plants maximum capacity to photosynthesize. As shown below in figure 1, the light response curve is not a linear regression. At low light levels, photosynthesis cannot reach peak rates(light limited). At higher light levels, we reach peak photosythetic rate. At light levels higher than that, we are limited by the carbon fixation of rubisco enzymes, not light, and we actually observe photorespiration ( a decline in net photosynthesis because the plant starts to respire more.
+Photosynthetic potential is the plants maximum capacity to photosynthesize. As shown below in figure 1, the light response curve is not a linear regression. At low light levels, photosynthesis cannot reach peak rates (light limited). At higher light levels, we reach peak photosynthetic rate. At light levels higher than that, we are limited by the carbon fixation of rubisco enzymes, not light, and we actually observe photorespiration ( a decline in net photosynthesis because the plant starts to respire more (Arulanantham _et al_, 1990) (Smith, 1938), (Taylor and Terry, 1984).
 
 
-![Figure 1: General Light repsponse curve](/Users/Lee/Desktop/QEco/NLM workshop/light curve.png){width=150}
+![Figure 1: General Light repsponse curve](/Users/Lee/Desktop/QEco/NLM workshop/light curve.png){width=175}
 
 
 ## Ecosystem Respiration
 
-Ecosystem respiration is the gross sum of all respiration (CO2 production) in an environment. It is heavily dependent on temperature. Understanding this term (R eco) allows us to calculate and correct other ecological parameters such as GPP & NEP to see what the net exchange of carbon is (NEE).
+Ecosystem respiration is the gross sum of all respiration (CO2 production) in an environment and is one of the main determinants of the carbon balance (valentini _et al_ 2000). Respiration is heavily dependent on temperature and moisture (Flanagan and Johnson, 2005). Understanding this term (R eco) allows us to calculate and correct other ecological parameters such as GPP & NEP to see what the net exchange of carbon is (NEE) which is crucial to building carbon budgets.
 
-![Figure 2: Ecosystem Respiration modelled after the Arrhenius approach](/Users/Lee/Desktop/QEco/NLM workshop/Reco.png){width=300}
+![Figure 2: Ecosystem Respiration modelled after the Arrhenius approach](/Users/Lee/Desktop/QEco/NLM workshop/Reco.png){width=175}
 
-# Results (at least 1 plot and one table)
+# Results 
 
-# Discussion (1 paragrapgh)
+Figure 3 shows the light response curve (NEE vs PAR) decreasing in NEE the closer to 0 PAR is. This is telling us that the system is acting more like a CO2 sink at low light levels than at high light levels. Table 1 shows the various parameter values over the 12 month period to be used to start the initial nls with bootstrap and also gives p-values for each months parameters. 
+
+```{r echo = FALSE, results = 'asis'}
+library(knitr)
+table<- read.csv('/Users/Lee/Desktop/QEco/NLM workshop/tableNLM.csv')
+kable(table[1:12, ], caption = "__Table 1: a1, ax, r parameters, and Bootstrap p-values __")
+```
+
+
+
+![ Figure 3: Light response curve, NEE vs PAR](/Users/Lee/Desktop/QEco/NLM workshop/Rplot.png){width=300}
+
+
+# Discussion
+
+The purpose of this workshop was to understand annual patterns of ecosystem photosynthetic potential and respiration rates by fitting monthly light response curves to Harvard forest flux data. Our goal was to adjust the model parameters so that we could find the curve that best fits our data. Three main assumptions must be made about the error term; they are normally distributed, homogeneous, and independent. After confirming these assumptions, we ran multiple simulations after selecting initial values and then bootstrapped, to get better initial values with error estimates, and allowed the simulation to ran many times. It is interesting that at lower light levels (PAR), NEE was actually more negative, which suggests that the habitat was storing more carbon. This does not make intuitive sense, at least at the light levels here (PAR<1000) because you would expect that they are taking in more carbon at lower light levels than they respire since they are not carbon limited. In otherwords, they should be able to use all of the light at that range to photosynthesize ans take in carbon, but the data shows, they are actually respiring at low light levels then at high light levels.  
+
+
+## Works Cited
+
+Arulanantham, A. R., Rao, I. M., & Terry, N. (1990). Limiting factors in photosynthesis: VI. Regeneration of ribulose 1, 5-bisphosphate limits photosynthesis at low photochemical capacity. Plant physiology, 93(4), 1466-1475.
+
+Flanagan, L. B., & Johnson, B. G. (2005). Interacting effects of temperature, soil moisture and plant biomass production on ecosystem respiration in a northern temperate grassland. Agricultural and Forest Meteorology, 130(3-4), 237-253.
+
+Smith, E. L. (1938). Limiting factors in photosynthesis: light and carbon dioxide. The Journal of general physiology, 22(1), 21-35.
+
+Taylor, S. E., & Terry, N. (1984). Limiting factors in photosynthesis: V. Photochemical energy supply colimits photosynthesis at low values of intercellular CO2 concentration. Plant Physiology, 75(1), 82-86.
+
+Valentini, R., Matteucci, G., Dolman, A. J., Schulze, E. D., Rebmann, C. J. M. E. A. G., Moors, E. J., ... & Lindroth, A. (2000). Respiration as the main determinant of carbon balance in European forests. Nature, 404(6780), 861-865.

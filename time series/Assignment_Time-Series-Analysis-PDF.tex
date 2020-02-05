@@ -1,0 +1,202 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
+\hypersetup{
+            pdftitle={Workshop 3\_Timeseries Models},
+            pdfauthor={Steven Unger},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\title{Workshop 3\_Timeseries Models}
+\author{Steven Unger}
+\date{1/24/2020}
+
+\begin{document}
+\maketitle
+
+\hypertarget{objectives}{%
+\section{Objectives}\label{objectives}}
+
+The primary objectives of this analysis is to apply the Autoregressive
+Integrated Moving Average method (ARIMA) to a eddy covariance derived
+time-series dataset and when/how to account for seasonal and temporal
+trends which violate independence assumptions. Specifically i will be
+investigating the role salinity plays in exlpaining the observed trends.
+
+\hypertarget{methods}{%
+\section{Methods}\label{methods}}
+
+\hypertarget{site-information}{%
+\subsection{Site Information}\label{site-information}}
+
+The dataset used in this analysis originates from an eddy-covariance
+tower the LTER site TS/Ph-7 in the Florida Everglades National Park
+(Figure 1). This flux tower collects continues data on numerous
+ecological parameters such as NEE, PAR, air temp, water temp, and
+salinity (Figure 2).
+
+\begin{figure}
+\centering
+\includegraphics[width=1.77083in,height=\textheight]{/Users/Lee/Desktop/QEco/time series/map of site.png}
+\caption{Figure 1: Map of tower site}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=1.77083in,height=\textheight]{/Users/Lee/Desktop/QEco/time series/Site picture.png}
+\caption{Figure 2: Eddy covariance tower Site in Mangrove habitat}
+\end{figure}
+
+\hypertarget{statistical-analysis}{%
+\subsection{Statistical Analysis}\label{statistical-analysis}}
+
+Here we will be guided via
+\href{https://fiu.instructure.com/courses/56707/pages/time-series-analysis}{Dr.~Malone's
+Guide} (Malone, 2020). The statistical analysis of the time-series
+dataset we employed is the Box-Jenkins method where we fit an ARIMA
+model to time-series data. First, we plot out the timeseries data to
+visualize any outliers or oddities, and then remove them if necessary.
+Next we decompose the observed timeseries into a seasonal component
+(takes into account calender fluctuations), trends (takes into account
+trends observed not linked to seasonality), and whatever is not
+exlpained is the residuals. Once deconstructed, we must test if the
+timeseries is stationary (required when using ARIMA). IF it is, we
+continue to test the autocorrelations which will identify our model
+parameters as p (lag order),d (the degree of differencing), and q (the
+moving average) to use in the fitting of the ARIMA model. Finally, we
+ensure that the proper order of parameters was used so that we do not
+have significant autocorrelations present. For reference to help with
+ARIMA models, click here:
+\href{http://webdoc.sub.gwdg.de/ebook/serien/e/monash_univ/wp6-07.pdf}{Automatic
+time series forecasting: the forecast package for R} (Hyndman and
+Khandakar, 2007).
+
+\hypertarget{results}{%
+\section{Results}\label{results}}
+
+Through applying the ARIMA model, we first needed to decompose the time
+series to decipher the seasonal trends, overarching trends, and the
+residuals as shown in Figure 3 and then test for stationarity (a
+requirement to run ARIMA models). After testing autocorrelations, we
+compared our models using AIC, which showed that arima.nee4 model
+performed better than our other arima runs as the lower value indicates
+that the model accounted for more variation (see Table 1). Figure 4
+shows the best fit ARIMA model overlaid in red on the NEE time series.
+
+\begin{figure}
+\centering
+\includegraphics{/Users/Lee/Desktop/QEco/time series/Rplot-decomp.jpeg}
+\caption{Figure 3: Decomposition of multiplicative time series of
+salinity}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{/Users/Lee/Desktop/QEco/time series/Rplot.png}
+\caption{Figure 4: NEE with overlaid ARIMA model in Red}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=1.30208in,height=\textheight]{/Users/Lee/Desktop/QEco/time series/Table1Done.png}
+\caption{Table 1: AIC Results}
+\end{figure}
+
+\hypertarget{discussion}{%
+\section{Discussion}\label{discussion}}
+
+The Goal of this exersize was to apply ARIMA models to time series data,
+and find what parameter best explains the patterns we observe, after we
+factor out seasonal trends. We specifically tested salinity, and we
+found that salinity does somewhat explain the pattern we observe,
+however, I was unable to test air temp and water temp through all of the
+protocols because of various errors. That being said, I suspect that
+precipitation is largely responsible for the decrease in salinity which
+is coupled with an increase in NEE because as the wet season approaches,
+salinity in mangrove habitats would likely decrease because of the
+larger proportion of freshwater. Conversely, I would expect that in the
+dry season, more freshwater would evaporate leaving behind higher
+salinity water. Finally, during times of high salinity, it may be harder
+for the plants to photosynthesize because of the metabolic cost of
+dealing with excess salts. This would require energy to exude, and would
+overall decrease NEE. If you compare the salinity graph with the NEE
+graph, you can see that NEE increases as Salinity decreases and
+vice-versa.
+
+Note to instructor: I would like to go over with you how to look at
+other variables (tair, twater) and why changing the size of the graphs
+affected the actual data it was showing me (when i was looking at
+autocorrelations). I will be using this method for my proposal, but i
+want to continue working on this dataset to truely understand how to run
+my own models.
+
+\hypertarget{works-cited}{%
+\subsection{Works Cited}\label{works-cited}}
+
+Hyndman, R. J., \& Khandakar, Y. (2007). Automatic time series for
+forecasting: the forecast package for R (No.~6/07). Clayton VIC,
+Australia: Monash University, Department of Econometrics and Business
+Statistics.
+
+Malone, Sparkle (2020). Time Series: Autoregressive Integrated Moving
+Average - ARIMA Workshop, Florida International University, Department
+of Biological Sciences
+
+\end{document}
