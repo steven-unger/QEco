@@ -1,5 +1,5 @@
 file.choose()
-load("~/Documents/Git Repository/QuanEco/time series/ARIMA_Workshop.RData")
+load("/Users/Lee/Desktop/QEco/time series/ARIMA_Workshop.RData")
 
 
 library(zoo) 
@@ -102,11 +102,14 @@ plot(sal.d)
 # p-value < 0.05 indicates the TS is stationary
 adf.test(sal)
 
+# do if p-value is not less than 0.05
 adf.test(diff(sal))
 
+
+# autocorrelation
 ccf( diff(sal),nee, na.action = na.pass, lag.max=40, plot=TRUE)
 
-
+#fitting the model
 arima.nee3 <-auto.arima(nee, xreg=c(diff(sal),0), trace=TRUE)
 
 
@@ -117,15 +120,18 @@ sal.i <- sal
 sal.i[sal.i < 25 ]<- 0 
 sal.i[sal.i >= 25 ]<- 1
 plot(sal.i)
-
+ 
 
 arima.nee4 <-auto.arima(nee, xreg=sal.i, trace=TRUE)
 
 
-AIC(arima.nee2,arima.nee4 )
+AIC(arima.nee2,arima.nee4)
+
+print(AIC(arima.nee2,arima.nee4))
 
 checkresiduals(arima.nee4, lag=36)
 
  
 par(mfrow=c(1,1))
 plot(nee , typ="l"); lines(fitted(arima.nee4),col="red")
+

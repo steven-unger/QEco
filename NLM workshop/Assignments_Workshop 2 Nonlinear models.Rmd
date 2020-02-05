@@ -8,17 +8,27 @@ output: github_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-# Objectives
-The primary objectives of this analysis is to fit monthly light response curves for Harvard forest to understand annual patterns ecosystem photosynthetic potential and respiration rates in temperate mixed forests...
 
+# Objectives
+The primary objectives of this analysis is to fit monthly light response curves for Harvard forest to understand annual patterns of ecosystem photosynthetic potential and respiration rates in temperate mixed forests. We will learn how to apply non-linear models and bootstrapping in R so that if need be, we can apply this technique to our own datasets down the line.
 
 # Methods
-
-## Site Information (include a map of the harvard forest site)
+   
+## Site Information
+An eddy covariance tower located above the canopy in Harvard forest in Massachusetts was used to collect continoues data of various ecological parameters such as PAR, Temperature, precipitation, and gas exchange (GPP, R, etc). The site contains various dominant species; red oak, redd maple, black birch, white pine, and eastern hemlock. For information about sensors and background info for the EMS tower at Harvard Forest, Visit [Flux at Harvard Forest](https://harvardforest.fas.harvard.edu/other-tags/eddy-flux)
 
 ## Photosynthetic Potential
+Photosynthetic potential is the plants maximum capacity to photosynthesize. As shown below in figure 1, the light response curve is not a linear regression. At low light levels, photosynthesis cannot reach peak rates(light limited). At higher light levels, we reach peak photosythetic rate. At light levels higher than that, we are limited by the carbon fixation of rubisco enzymes, not light, and we actually observe photorespiration ( a decline in net photosynthesis because the plant starts to respire more.
+
+
+![Figure 1: General Light repsponse curve](/Users/Lee/Desktop/QEco/NLM workshop/light curve.png){width=150}
+
 
 ## Ecosystem Respiration
+
+Ecosystem respiration is the gross sum of all respiration (CO2 production) in an environment. It is heavily dependent on temperature. Understanding this term (R eco) allows us to calculate and correct other ecological parameters such as GPP & NEP to see what the net exchange of carbon is (NEE).
+
+![Figure 2: Ecosystem Respiration modelled after the Arrhenius approach](/Users/Lee/Desktop/QEco/NLM workshop/Reco.png){width=300}
 
 # Results (at least 1 plot and one table)
 

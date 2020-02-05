@@ -1,0 +1,51 @@
+---
+title: "Workshop 3_Timeseries Models"
+author: "Steven Unger"
+date: "1/24/2020"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Objectives
+The primary objectives of this analysis is to apply the Autoregressive Integrated Moving Average method (ARIMA) to a eddy covariance derived time-series dataset and when/how to account for seasonal and temporal trends which violate independence assumptions. Specifically i will be investigating the role salinity plays in exlpaining the observed trends.
+
+
+# Methods
+
+## Site Information 
+The dataset used in this analysis originates from an eddy-covariance tower the LTER site TS/Ph-7 in the Florida Everglades National Park (Figure 1). This flux tower collects continues data on numerous ecological parameters such as NEE, PAR, air temp, water temp, and salinity (Figure 2).
+
+
+![Figure 1: Map of tower site](/Users/Lee/Desktop/QEco/time series/map of site.png){width=170}
+
+
+![Figure 2: Eddy covariance tower Site in Mangrove habitat](/Users/Lee/Desktop/QEco/time series/Site picture.png){width=170}
+
+
+## Statistical Analysis
+Here we will be guided via [Dr. Malone's Guide](https://fiu.instructure.com/courses/56707/pages/time-series-analysis) (Malone, 2020). The statistical analysis of the time-series dataset we employed is the Box-Jenkins method where we fit an ARIMA model to time-series data. First, we plot out the timeseries data to visualize any outliers or oddities, and then remove them if necessary. Next we decompose the observed timeseries into a seasonal component (takes into account calender fluctuations), trends (takes into account trends observed not linked to seasonality), and whatever is not exlpained is the residuals. Once deconstructed, we must test if the timeseries is stationary (required when using ARIMA). IF it is, we continue to test the autocorrelations which will identify our model parameters as p (lag order),d (the degree of differencing), and q (the moving average) to use in the fitting of the ARIMA model. Finally, we ensure that the proper order of parameters was used so that we do not have significant autocorrelations present. For reference to help with ARIMA models, click here: [Automatic time series forecasting: the forecast package for R](http://webdoc.sub.gwdg.de/ebook/serien/e/monash_univ/wp6-07.pdf) (Hyndman and Khandakar, 2007).
+
+# Results
+
+Through applying the ARIMA model, we first needed to decompose the time series to decipher the seasonal trends, overarching trends, and the residuals as shown in Figure 3 and then test for stationarity (a requirement to run ARIMA models). After testing autocorrelations, we compared our models using AIC, which showed that arima.nee4 model performed better than our other arima runs as the lower value indicates that the model accounted for more variation (see Table 1). Figure 4 shows the best fit ARIMA model overlaid in red on the NEE time series. 
+
+![Figure 3: Decomposition of multiplicative time series of salinity](/Users/Lee/Desktop/QEco/time series/Rplot-decomp.jpeg)
+
+![Figure 4: NEE with overlaid ARIMA model in Red](/Users/Lee/Desktop/QEco/time series/Rplot.png)
+
+![Table 1: AIC Results](/Users/Lee/Desktop/QEco/time series/Table1Done.png){width=125}
+
+# Discussion 
+
+The Goal of this exersize was to apply ARIMA models to time series data, and find what parameter best explains the patterns we observe, after we factor out seasonal trends. We specifically tested salinity, and we found that salinity does somewhat explain the pattern we observe, however, I was unable to test air temp and water temp through all of the protocols because of various errors. That being said, I suspect that precipitation is largely responsible for the decrease in salinity which is coupled with an increase in NEE because as the wet season approaches, salinity in mangrove habitats would likely decrease because of the larger proportion of freshwater. Conversely, I would expect that in the dry season, more freshwater would evaporate leaving behind higher salinity water. Finally, during times of high salinity, it may be harder for the plants to photosynthesize because of the metabolic cost of dealing with excess salts. This would require energy to exude, and would overall decrease NEE. If you compare the salinity graph with the NEE graph, you can see that NEE increases as Salinity decreases and vice-versa. 
+
+Note to instructor: I would like to go over with you how to look at other variables (tair, twater) and why changing the size of the graphs affected the actual data it was showing me (when i was looking at autocorrelations). I will be using this method for my proposal, but i want to continue working on this dataset to truely understand how to run my own models. 
+ 
+## Works Cited
+Hyndman, R. J., & Khandakar, Y. (2007). Automatic time series for forecasting: the forecast package for R (No. 6/07). Clayton VIC, Australia: Monash University, Department of Econometrics and Business Statistics.
+
+Malone, Sparkle (2020). Time Series: Autoregressive Integrated Moving Average - 
+ARIMA Workshop, Florida International University, Department of Biological Sciences
